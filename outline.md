@@ -2,7 +2,7 @@
 
 ## Substrate 区块链应用开发
 
-1. Substrate & Polkadot 简介 - Maggie
+1. Substrate & Polkadot 简介 
     - 为什么学习 Substrate
     - Polkadot 特点和生态
     - 搭建开发环境
@@ -12,13 +12,13 @@
     - Node template 代码导读
     - 作业
 
-2. Proof of Existence 教程（一）- Kaichao
+2. Proof of Existence 教程（一）
     - Runtime Macros 介绍
     - Storage Data Type
     - 模块功能开发
     - 作业
 
-3. Proof of Existence 教程（二）- Kaichao
+3. Proof of Existence 教程（二）
     - Transaction Weight & Fees
     - 单元测试
     - 编写UI
@@ -29,7 +29,7 @@
         - transaction-payment
     - 作业
 
-4. polkadot-js app/api 如何使用 - Jimmy
+4. polkadot-js app/api 如何使用 
     - Polkadot-JS App 详细介绍
     - 介绍和安装
     - 常用功能讲解
@@ -42,14 +42,14 @@
     - 使用Frontend template 打造React应用
     - 作业
 
-5. Substrate Kitties 教程（一）- Bryan
+5. Substrate Kitties 教程（一）
     - Metadata元数据介绍
     - SCALE codec 介绍
     - 模块功能开发-1
     - 单元测试-1
     - 作业
 
-6. Substrate Kitties 教程（二）- Bryan
+6. Substrate Kitties 教程（二）
     - 链上升级和数据迁移
     - 模块功能开发-2
     - 单元测试-2
@@ -59,7 +59,7 @@
         - generic-asset
     - 作业
 
-7. Substrate Kitties 教程（三）- Bryan
+7. Substrate Kitties 教程（三）
     - 模块间功能复用
     - 编写UI
     - FRAME 治理相关模块介绍
@@ -71,7 +71,7 @@
         - membership
     - 作业
 
-8. Off-chain Worker 教程（一）- Jimmy
+8. Off-chain Worker 教程（一）
     - Substrate 密码学
     - 介绍及代码前期衔接
         - Send Signed Transaction
@@ -80,7 +80,7 @@
     - 单元测试
     - 作业
 
-9. Off-chain Worker 教程（二）- Jimmy
+9. Off-chain Worker 教程（二）
     - 发送 HTTP 请求及 JSON 解析
     - off-chain worker 存储数据库
     - FRAME 权益证明相关模块介绍:
@@ -89,13 +89,13 @@
         - session
     - 作业
 
-10. Smart Contract 教程（一）- Maggie
+10. Smart Contract 教程（一）
     - FRAME 智能合约相关模块介绍
         - contracts
     - 使用 ink! 编写智能合约
     - 作业
 
-11. Smart Contract 教程（二）- Maggie
+11. Smart Contract 教程（二）
     - 运行 Solidity 智能合约
     - 社交相关模块介绍
         - identity
@@ -103,7 +103,7 @@
         - society
     - 作业
 
-12. 测试和上线 - Kaichao
+12. 测试和上线 
     - Benchmark 和 Runtime 参数
     - 安全性验证
     - 通证经济模型
@@ -113,7 +113,7 @@
 
 ## Substrate blockchain application development
 
-1. Substrate & Polkadot Overview - Maggie
+1. Substrate & Polkadot Overview 
     - Why Learn Substrate
     - The Feature and Ecosystem of Polkadot
     - Setup Development Environment
@@ -123,13 +123,13 @@
     - Node template code guidance
     - Homework
 
-2. Proof of Existence tutorial（1）- Kaichao
+2. Proof of Existence tutorial（1）
     - Introduction of Runtime Macros
     - Storage Data Type
     - Development of Module Functionality
     - Homework
 
-3. Proof of Existence Tutorial（2）- Kaichao
+3. Proof of Existence Tutorial（2）
     - Transaction Weight & Fees
     - Unit Test
     - Develop UI
@@ -140,7 +140,7 @@
         - transaction-payment
     - Homework
 
-4. How to Use Polkadot-js/api - Jimmy
+4. How to Use Polkadot-js/api 
     - Introduction and Setup
     - Explanation of common functions
         - Query on-chain storage and constants
@@ -155,14 +155,14 @@
         - WebSocket
     - Homework
 
-5. Substrate Kitties Tutorial（1）- Bryan
+5. Substrate Kitties Tutorial（1）
     - Introduction on Metadata struct
     - SCALE codec (data encoding/decoding)
     - Pallet feature development - 1
     - Unit Test - 1
     - Exercise
 
-6. Substrate Kitties Tutorial（2）- Bryan
+6. Substrate Kitties Tutorial（2）
     - Runtime upgrade and data migration
     - Pallet feature development - 2
     - Unit Test - 2
@@ -172,7 +172,7 @@
         - generic-asset
     - Exercise
 
-7. Substrate Kitties Tutorial（3）- Bryan
+7. Substrate Kitties Tutorial（3）
     - Code reuse across pallets
     - UI programming
     - FRAME: introduction to governance-related pallets:
@@ -184,7 +184,7 @@
         - membership
     - Exercise
 
-8. Off-chain Worker Tutorial（1）- Jimmy
+8. Off-chain Worker Tutorial（1）
     - Cryptography in Substrate
     - Off-chain work introduction and Setup
         - Send Signed Transaction
@@ -193,7 +193,7 @@
     - Unit Test for off-chain worker
     - Exercise
 
-9. Off-chain Worker Tutorial（2）- Jimmy
+9. Off-chain Worker Tutorial（2）
     - Sending HTTP requests and JSON parsing
     - off-chain worker local storage
     - FRAME: introduction on staking-related pallets:
@@ -202,14 +202,14 @@
         - session
     - Exercise
 
-10. Smart Contract Tutorial（1) - Maggie
+10. Smart Contract Tutorial（1) 
     - FRAME: introduction on smart contract-related pallets
         - contracts
         - evm
     - Writing Smart Contract in ink!
     - Exercise
 
-11. Smart Contract Tutorial（2) - Maggie
+11. Smart Contract Tutorial（2) 
     - Running Solidity Smart Contract
     - FRAME: introduction on society-related pallets
         - identity
@@ -217,7 +217,7 @@
         - society
     - Exercise
 
-12. Testing and Deployment - Kaichao
+12. Testing and Deployment 
     - Benchmark and Runtime Configuration
     - Security Concern
     - Tokenomics
