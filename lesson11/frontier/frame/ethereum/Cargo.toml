@@ -1,0 +1,51 @@
+[package]
+name = "pallet-ethereum"
+version = "0.1.0"
+authors = ["Parity Technologies <admin@parity.io>"]
+edition = "2018"
+description = "Ethereum compatibility full block processing emulation pallet for Substrate."
+license = "GPL-3.0"
+
+[dependencies]
+rustc-hex = { version = "2.1.0", default-features = false }
+serde = { version = "1.0.101", optional = true }
+codec = { package = "parity-scale-codec", version = "1.0.0", default-features = false }
+frame-support = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/frame/support" }
+frame-system = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/frame/system" }
+pallet-balances = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/frame/balances" }
+pallet-timestamp = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/frame/timestamp" }
+pallet-evm = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/frame/evm" }
+sp-runtime = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/primitives/runtime" }
+sp-std = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/primitives/std" }
+sp-io = { version = "2.0.0-dev", default-features = false, path = "../../vendor/substrate/primitives/io" }
+ethereum = { version = "0.2", default-features = false, features = ["codec"] }
+ethereum-types = { version = "0.9", default-features = false }
+rlp = { version = "0.4", default-features = false }
+sha3 = { version = "0.8", default-features = false }
+libsecp256k1 = { version = "0.3", default-features = false }
+frontier-rpc-primitives = { path = "../../rpc/primitives", default-features = false }
+
+[dev-dependencies]
+sp-core = { version = "2.0.0-dev", path = "../../vendor/substrate/primitives/core" }
+
+[features]
+default = ["std"]
+std = [
+	"serde",
+	"rustc-hex/std",
+	"codec/std",
+	"sp-runtime/std",
+	"frame-support/std",
+	"frame-system/std",
+	"pallet-balances/std",
+	"pallet-timestamp/std",
+	"pallet-evm/std",
+	"sp-io/std",
+	"sp-std/std",
+	"ethereum/std",
+	"ethereum-types/std",
+	"rlp/std",
+	"sha3/std",
+	"libsecp256k1/std",
+	"frontier-rpc-primitives/std",
+]

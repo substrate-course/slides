@@ -1,0 +1,13 @@
+[workspace]
+members = [
+	"frame/ethereum",
+	"rpc",
+	"rpc/core",
+	"rpc/primitives",
+	"template/node",
+	"template/runtime",
+]
+exclude = ["vendor"]
+
+[patch.crates-io]
+ethereum = { path = "vendor/ethereum" }
