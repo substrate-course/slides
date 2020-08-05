@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/frame/ethereum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/frame/ethereum/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/frame/ethereum/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/frame/ethereum/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/template/runtime/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/template/runtime/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/template/runtime/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/template/runtime/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/template/node/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/template/node/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/template/node/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/template/node/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/core/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/core/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/core/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/core/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/primitives/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/primitives/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/primitives/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rpc/primitives/benches" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/frame/ethereum/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rpc/core/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rpc/primitives/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rpc/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/template/node/target" />
+      <excludeFolder url="file://$MODULE_DIR$/template/runtime/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
