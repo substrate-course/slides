@@ -1,0 +1,10 @@
+{
+  "Address": "AccountId",
+  "LookupSource": "AccountId",
+  "Kitty": "([u8; 16])",
+  "KittyIndex": "u32",
+  "KittyLinkedItem": {
+    "prev": "Option<u32>",
+    "next": "Option<u32>"
+  }
+}
