@@ -1,0 +1,9 @@
+{
+  "name": "js-component",
+  "version": "1.0.0",
+  "description": "Demo connecting to Substrate Node Template",
+  "main": "index.js",
+  "author": "Jimmy Chu",
+  "license": "Unlicensed",
+  "private": false
+}
