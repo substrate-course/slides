@@ -12,7 +12,7 @@ Substrate/Polkadot-JS 文档：
     - 进阶菜谱 Recipes
     - API 文档 Rustdocs
 
-  - [Polkadot wiki](https://wiki.polkadot.network)
+  - [Polkadot Wiki](https://wiki.polkadot.network/docs/en/getting-started) / [Kusama Guide](https://guide.kusama.network/docs/en/kusama-index)
 
     纪录着 Polkadot 及 Kusama 网络的基础知识及网络行为
 
