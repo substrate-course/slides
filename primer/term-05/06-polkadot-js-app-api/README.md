@@ -85,26 +85,44 @@ https://polkadot.js.org/extension/
     const api = await ApiPromise.create({ provider: wsProvider });
     ```
 
-- 等到状态 `isReady()`
-
 - 读取某个 pallet 的常量：
 
   ```javascript
   api.consts.<pallet 名称>.<常量名称>
   // 比如:
-  api.consts.balances.existentialDeposit
+  const existentialDeposit = await api.consts.balances.existentialDeposit
   ```
 
-- 读取某个存储内容：
+- 读取某个模塊的存储内容：
 
   ```javascript
   api.query.<pallet 名称>.<存储名称>
   // 比如:
-  api.query.balances.existentialDeposit
+  api.query.system.account(alice.address);
   ```
 
 - 发送交易
-- 读取链上 metadata
+
+  ```javascript
+  await api.tx.balances.transfer(dest.address, amt)
+    .signAndSend(src, res => {
+      console.log(`Tx status: ${res.status}`);
+    });
+  ```
+
 - 订阅事件
 
+  ```javascript
+  const unsub = await api.query.system.account(alice.address, aliceAcct => {
+    ...
+  });
+  ```
+
+- 读取链上 metadata
+
+  ```javascript
+  const metadata = await api.rpc.state.getMetadata();
+  ```
+
 ## 作业
+

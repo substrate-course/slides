@@ -4,6 +4,20 @@
   "description": "Demo connecting to Substrate Node Template",
   "main": "index.js",
   "author": "Jimmy Chu",
-  "license": "Unlicensed",
-  "private": false
+  "license": "Unlicense",
+  "private": false,
+  "scripts": {
+    "start": "node --use_strict index.js",
+    "start:dev": "nodemon --use_strict --inspect index.js",
+    "start:debug": "nodemon --use_strict --inspect --inspect-brk index.js"
+  },
+ "dependencies": {
+    "@polkadot/api": "^4.7.1",
+    "@polkadot/keyring": "^6.3.1",
+    "@polkadot/util": "^6.3.1",
+    "@polkadot/util-crypto": "^6.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
