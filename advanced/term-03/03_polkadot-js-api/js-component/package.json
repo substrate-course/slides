@@ -1,0 +1,23 @@
+{
+  "name": "js-component",
+  "version": "1.0.0",
+  "description": "Demo connecting to Substrate Node Template",
+  "main": "index.js",
+  "author": "Jimmy Chu",
+  "license": "Unlicense",
+  "private": false,
+  "scripts": {
+    "start": "node --use_strict index.js",
+    "start:dev": "nodemon --use_strict --inspect index.js",
+    "start:debug": "nodemon --use_strict --inspect --inspect-brk index.js"
+  },
+ "dependencies": {
+    "@polkadot/api": "^5.3.2",
+    "@polkadot/keyring": "^7.1.1",
+    "@polkadot/util": "^7.1.1",
+    "@polkadot/util-crypto": "^7.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
