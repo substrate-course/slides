@@ -358,7 +358,7 @@ const txHash = await api.tx.balances
 
 ## 作业
 
-前端基于 [kitties 已有的前端](kitties-hw) 加以下 UX 及功能。这部份共 10 分:
+前端基于 [kitties 已有的前端](kitties) 加以下 UX 及功能。这部份共 10 分:
 
 1. 能创建一个毛孩 (**3 分**)
 2. 每一个毛孩展示成一张卡片，并显示是不是属于你的 (**4 分**)
