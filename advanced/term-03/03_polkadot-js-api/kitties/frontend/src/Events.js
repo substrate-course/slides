@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Feed, Grid, Button } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react'
+import { Feed, Grid, Button } from 'semantic-ui-react'
 
-import { useSubstrate } from './substrate-lib';
+import { useSubstrate } from './substrate-lib'
 
 // Events to be filtered from feed
 const FILTERED_EVENTS = [
   'system:ExtrinsicSuccess:: (phase={"ApplyExtrinsic":0})',
   'system:ExtrinsicSuccess:: (phase={"ApplyExtrinsic":1})'
-];
+]
 
 function Main (props) {
-  const { api } = useSubstrate();
-  const [eventFeed, setEventFeed] = useState([]);
+  const { api } = useSubstrate()
+  const [eventFeed, setEventFeed] = useState([])
 
   useEffect(() => {
-    let unsub = null;
+    let unsub = null
     const allEvents = async () => {
       unsub = await api.query.system.events(events => {
         // loop through the Vec<EventRecord>
         events.forEach(record => {
           // extract the phase, event and the event types
-          const { event, phase } = record;
-          const types = event.typeDef;
+          const { event, phase } = record
+          const types = event.typeDef
 
           // show what we are busy with
           const eventName = `${event.section}:${
             event.method
-          }:: (phase=${phase.toString()})`;
+          }:: (phase=${phase.toString()})`
 
-          if (FILTERED_EVENTS.includes(eventName)) return;
+          if (FILTERED_EVENTS.includes(eventName)) return
 
           // loop through each of the parameters, displaying the type and data
           const params = event.data.map(
             (data, index) => `${types[index].type}: ${data.toString()}`
-          );
+          )
 
           setEventFeed(e => [{
             icon: 'bell',
             summary: `${eventName}-${e.length}`,
-            extraText: event.meta.documentation.join(', ').toString(),
+            extraText: event.meta.docs.join(', ').toString(),
             content: params.join(', ')
-          }, ...e]);
-        });
-      });
-    };
+          }, ...e])
+        })
+      })
+    }
 
-    allEvents();
-    return () => unsub && unsub();
-  }, [api.query.system]);
+    allEvents()
+    return () => unsub && unsub()
+  }, [api.query.system])
 
-  const { feedMaxHeight = 250 } = props;
+  const { feedMaxHeight = 250 } = props
 
   return (
     <Grid.Column width={8}>
@@ -64,12 +64,14 @@ function Main (props) {
       />
       <Feed style={{ clear: 'both', overflow: 'auto', maxHeight: feedMaxHeight }} events={eventFeed} />
     </Grid.Column>
-  );
+  )
 }
 
 export default function Events (props) {
-  const { api } = useSubstrate();
-  return api.query && api.query.system && api.query.system.events ? (
+  const { api } = useSubstrate()
+  return api.query && api.query.system && api.query.system.events
+    ? (
     <Main {...props} />
-  ) : null;
+      )
+    : null
 }

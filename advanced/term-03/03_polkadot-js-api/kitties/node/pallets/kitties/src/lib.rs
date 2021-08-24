@@ -63,7 +63,7 @@ pub mod pallet {
 					ensure!(id != KittyIndex::max_value(), Error::<T>::KittiesCountOverflow);
 					id
 				},
-				None => 1
+				None => 0
 			};
 
 			let dna = Self::random_value(&who);
@@ -109,7 +109,7 @@ pub mod pallet {
 					ensure!(id != KittyIndex::max_value(), Error::<T>::KittiesCountOverflow);
 					id
 				},
-				None => 1
+				None => 0
 			};
 
 			let dna_1 = kitty1.0;

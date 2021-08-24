@@ -1,34 +1,34 @@
-import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Loader, Grid, Sticky, Message } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
+import React, { useState, createRef } from 'react'
+import { Container, Dimmer, Loader, Grid, Sticky, Message } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
 
-import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
-import { DeveloperConsole } from './substrate-lib/components';
+import { SubstrateContextProvider, useSubstrate } from './substrate-lib'
+import { DeveloperConsole } from './substrate-lib/components'
 
-import AccountSelector from './AccountSelector';
-import Balances from './Balances';
-import BlockNumber from './BlockNumber';
-import Events from './Events';
-import Interactor from './Interactor';
-import Kitties from './Kitties';
-import Metadata from './Metadata';
-import NodeInfo from './NodeInfo';
-import TemplateModule from './TemplateModule';
-import Transfer from './Transfer';
-import Upgrade from './Upgrade';
+import AccountSelector from './AccountSelector'
+import Balances from './Balances'
+import BlockNumber from './BlockNumber'
+import Events from './Events'
+import Interactor from './Interactor'
+import Kitties from './Kitties'
+import Metadata from './Metadata'
+import NodeInfo from './NodeInfo'
+import TemplateModule from './TemplateModule'
+import Transfer from './Transfer'
+import Upgrade from './Upgrade'
 
 function Main () {
-  const [accountAddress, setAccountAddress] = useState(null);
-  const { apiState, keyring, keyringState, apiError } = useSubstrate();
+  const [accountAddress, setAccountAddress] = useState(null)
+  const { apiState, keyring, keyringState, apiError } = useSubstrate()
   const accountPair =
     accountAddress &&
     keyringState === 'READY' &&
-    keyring.getPair(accountAddress);
+    keyring.getPair(accountAddress)
 
   const loader = text =>
     <Dimmer active>
       <Loader size='small'>{text}</Loader>
-    </Dimmer>;
+    </Dimmer>
 
   const message = err =>
     <Grid centered columns={2} padded>
@@ -38,16 +38,16 @@ function Main () {
           content={`${JSON.stringify(err, null, 4)}`}
         />
       </Grid.Column>
-    </Grid>;
+    </Grid>
 
-  if (apiState === 'ERROR') return message(apiError);
-  else if (apiState !== 'READY') return loader('Connecting to Substrate');
+  if (apiState === 'ERROR') return message(apiError)
+  else if (apiState !== 'READY') return loader('Connecting to Substrate')
 
   if (keyringState !== 'READY') {
-    return loader('Loading accounts (please review any extension\'s authorization)');
+    return loader('Loading accounts (please review any extension\'s authorization)')
   }
 
-  const contextRef = createRef();
+  const contextRef = createRef()
 
   return (
     <div ref={contextRef}>
@@ -83,7 +83,7 @@ function Main () {
       </Container>
       <DeveloperConsole />
     </div>
-  );
+  )
 }
 
 export default function App () {
@@ -91,5 +91,5 @@ export default function App () {
     <SubstrateContextProvider>
       <Main />
     </SubstrateContextProvider>
-  );
+  )
 }
