@@ -8,7 +8,6 @@ tags: Substrate 进阶课, batch-02
 
 - Polkadot-JS API
 - FRAME collective 模块讲解
-- FRAME membership 模块讲解
 
 ## 讲在开始之前
 
