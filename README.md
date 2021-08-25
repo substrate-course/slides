@@ -1,6 +1,6 @@
 ## Slides
 
-This repo contains all the slides used in the course.
+This repo contains materials used in Substrate Course.
 
-Course outline, [click here](./outline.md)
+[Course outline](./outline.md)
 
