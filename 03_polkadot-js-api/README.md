@@ -1,1 +1,388 @@
-course-notes.md
+# Substrate 进阶课第 3 讲 II
+
+## 大纲
+
+- Polkadot-JS API
+- FRAME collective 模块讲解
+
+## 讲在开始之前
+
+- 请先执行以下指令 git clone 这个 repo:
+
+  ```bash
+  git clone https://github.com/SubstrateCourse/slides
+  cd slides
+  git checkout advanced-term-03
+  cd 03_polkadot-js-api
+  ```
+
+- 授人以鱼，不如授之以渔
+- 会讲如何在各文档之间穿梭，这是学用 Substrate 最重要的技能
+
+Substrate/Polkadot-JS 文档：
+
+- 主要：[substrate.dev](https://substrate.dev)
+  - [教程 tutorials](https://substrate.dev/tutorials)
+  - [基础知识 knowledge base](https://substrate.dev/docs/en/)
+  - [进阶菜谱 Recipes](https://substrate.dev/recipes/)
+  - [how-to 手册](https://substrate.dev/substrate-how-to-guides/)
+  - [API 文档 Rustdocs](https://substrate.dev/rustdocs/)
+
+- [Polkadot wiki](https://wiki.polkadot.network/)
+  - 纪录着 Polkadot 及 Kusama 网络的基础知识及网络行为
+
+- [Polkadot JS 文档](https://polkadot.js.org/docs/)
+
+## Polkadot-js API
+
+1. 首先各位要先运行 [Substrate Node Template **v3.0.0+monthly-2021-08** 版](https://github.com/substrate-developer-hub/substrate-node-template/tree/v3.0.0+monthly-2021-08)
+
+2. 运行随本目录的 [`js-component`](./js-component)
+
+  ```bash
+  cd js-component
+  yarn install
+  // 在这里运行 Substrate Node Template 节点
+  yarn start
+  ```
+
+### 连接到 Substrate 节点
+
+```javascript
+const { ApiPromise, WsProvider } = require('@polkadot/api');
+
+// Construct
+const wsProvider = new WsProvider('ws://127.0.0.1:9944');
+// 如没有运行 node-template，也可试连到波卡主网上： `wss://rpc.polkadot.io`.
+const api = await ApiPromise.create({ provider: wsProvider });
+```
+
+### 读取链上元数据 (metadata)
+
+```javascript
+const { magicNumber, metadata } = await api.rpc.state.getMetadata();
+
+console.log("Magic number: " + magicNumber);
+console.log("Metadata: " + metadata.raw);
+```
+
+为什么这个重要？因为你能知道整个 链提供了什么外部交易给客户端使用
+
+```javascript
+{
+  magicNumber: 1635018093,
+  metadata: {
+    V13: {
+      modules: [
+        // { ... }
+        {
+          "name": "TemplateModule",
+          "storage": {
+            "prefix": "TemplateModule",
+            "items": [
+              {
+                "name": "Something",
+                "modifier": "Optional",
+                "type": {
+                  "plain": "u32"
+                },
+                "fallback": "0x00",
+                "docs": []
+              }
+            ]
+          },
+          "calls": [
+            {
+              "name": "do_something",
+              "args": [
+                {
+                  "name": "something",
+                  "type": "u32"
+                }
+              ],
+              "docs": [
+                " An example dispatchable that takes a singles value as a parameter, writes the value to",
+                " storage and emits an event. This function must be dispatched by a signed extrinsic."
+              ]
+            },
+            {
+              "name": "cause_error",
+              "args": [],
+              "docs": [
+                " An example dispatchable that may throw a custom error."
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "SomethingStored",
+              "args": [
+                "u32",
+                "AccountId"
+              ],
+              "docs": [
+                " Event documentation should end with an array that provides descriptive names for event",
+                " parameters. [something, who]"
+              ]
+            }
+          ],
+          "constants": [],
+          "errors": [
+            {
+              "name": "NoneValue",
+              "docs": [
+                " Error names should be descriptive."
+              ]
+            },
+            {
+              "name": "StorageOverflow",
+              "docs": [
+                " Errors should have helpful documentation associated with them."
+              ]
+            }
+          ],
+          "index": 8
+        }
+      ],
+      "extrinsic": {
+        "version": 4,
+        "signedExtensions": [
+          "CheckSpecVersion",
+          "CheckTxVersion",
+          "CheckGenesis",
+          "CheckMortality",
+          "CheckNonce",
+          "CheckWeight",
+          "ChargeTransactionPayment"
+        ]
+      }
+    }
+  }
+}
+```
+
+- metadata 包含了所有 pallets (即 module 里面的内容)，每个 pallet 的名称，记录着 storage, calls, events, constants, errors
+- 读取这个链的 metadata, 就会知道这 Substrate 链提供了什么接口可供调用。
+- Polkadot-JS API 也是透过读取这数据构建出 api.[tx, consts, query].* 的接口。
+
+详细可看这里: https://substrate.dev/docs/en/knowledgebase/runtime/metadata
+
+### 基础
+
+- `api.tx.<pallet>.<call>` 来发送外部交易 (extrinsics)
+- `api.consts.<pallet>.<const>` 来拿取 pallet 常数
+- `api.query.<pallet>.<name>` 来读取 pallet 存储
+
+
+### 基础：读取某个 pallet 的常量
+
+```javascript
+// api.consts.<pallet 名称>.<常量名称>. 比如:
+const main = async() => {
+  const existentialDeposit = await api.consts.balances.existentialDeposit
+}
+```
+
+### 基础：读取某个 pallet 的存储内容
+
+```javascript
+// api.query.<pallet 名称>.<存储名称>. 比如:
+const main = async() => {
+  const acct = await api.query.system.account(alice.address);
+}
+```
+
+### 基础：发送交易
+
+```javascript
+await api.tx.balances.transfer(dest.address, amt)
+  .signAndSend(src, res => {
+    console.log(`Tx status: ${res.status}`);
+  });
+```
+
+### 批量查询及订阅
+
+1. **同时发多个查询**
+
+    可同时发多个查询，而不是一条一条发
+
+    ```javascript
+    // Subscribe to balance changes for 2 accounts, ADDR1 & ADDR2 (already defined)
+    const unsub = await api.query.system.account.multi([ADDR1, ADDR2], (balances) => {
+    const [{ data: balance1 }, { data: balance2 }] = balances;
+
+    console.log(`The balances are ${balance1.free} and ${balance2.free}`);
+    });
+    ```
+
+    也可同时发送多个不同类型查询
+
+    ```javascript
+    // Subscribe to the timestamp, our index and balance
+    const unsub = await api.queryMulti([
+     api.query.timestamp.now,
+     [api.query.system.account, ADDR]
+    ], ([now, { nonce, data: balance }]) => {
+     console.log(`${now}: balance of ${balance.free} and a nonce of ${nonce}`);
+    });
+    ```
+
+    以上的开发模式有两点要注意：
+
+    - 作查询时，传入一个 回调函数 (callback)。这是个订阅函数。你在这里更新你 react 的 state 的话，就不会出现为什么链上数据改了，而前端没有更新数据的问题。
+
+    - `unsub`：这个 `unsub` 是一个函数，用来取消这个订阅的。如果是 react/前端开发，你在 `ComponentWillUnmount()`，或 `useEffect()` 里，就会 call 这个取消订阅函数。整个模式类似以下：
+
+    ```javascript
+    useEffect(() => {
+     let unsub = null;
+
+     const asyncFetch = async () => {
+       unsub = await api.query.pallet.storage(
+         param,
+         result => console.log(`Result: ${result}`)
+       );
+     };
+
+     asyncFetch();
+
+     return () => {
+       unsub && unsub()
+     }
+    }, [api, keyring]);
+    ```
+
+2. **交易并订阅事件**
+
+    ```javascript
+    // Create alice (carry-over from the keyring section)
+    const alice = keyring.addFromUri('//Alice');
+
+    // Make a transfer from Alice to BOB, waiting for inclusion
+    const unsub = await api.tx.balances
+     .transfer(BOB, 12345)
+     .signAndSend(alice, (result) => {
+       console.log(`Current status is ${result.status}`);
+
+       if (result.status.isInBlock) {
+         console.log(`Transaction included at blockHash ${result.status.asInBlock}`);
+       } else if (result.status.isFinalized) {
+         console.log(`Transaction finalized at blockHash ${result.status.asFinalized}`);
+         unsub();
+       }
+     });
+    ```
+
+### 设定自订义类型
+
+如果你看到有以下错误信息，
+
+```
+Cannot construct unknown type ...
+```
+
+如下图：
+
+![unknown type 报错](https://i.imgur.com/nwl3cTy.jpg)
+
+那说明你的 Substrate 链有一自定义类型，但 polakdot-JS API 不知道怎么解释它。需要做的是在 Polkadot-JS API 连入 Substrate 节点时，定义出该类型。如下面的 `kittyIndex`。
+
+```javascript
+const api = await ApiPromise.create({
+  provider: wsProvider,
+  types: {
+    KittyIndex: 'u64'
+  }
+});
+```
+
+
+在用 Polkadot-JS App 时，则可在 Settings > Developer 把自定义的类型 JSON 放到这里来。
+
+详情参看：https://polkadot.js.org/docs/api/start/types.extend
+
+### keyring 钥匙圈
+
+```javascript
+// Import
+const { Keyring } = require('@polkadot/keyring');
+```
+
+- 会有一组 mnemonics 来生成一个 "钥匙圈"。
+- "钥匙圈" 可生成出许多个 keypair 钥匙对，即公钥-私钥对。
+- 这个钥匙对用来对你所作的交易签名的。
+- 你用你的私钥对一个交易 (可理解为一组信息，一堆 bytes) 进行签名。其他人可用你的公钥来验证这个交易为你用私钥签署的
+- 签名的方法 polkadot-js API 支持：
+  - ed25519
+  - sr25519
+  - ecdsa
+  - 及 ethereum
+
+- 而同一对钥匙对，会因应不同的网络，有着不同的网络前䮕, network prefix 放在该公钥前，而生成出不同的帐号 (AccountID)。也就是说同一对钥匙对，在 Substrate 网络里是一个 AccountID, 在 Polkadot 网络则会显示为另一组 AccountID, 在 Kusama 又是另一个。
+
+```javascript
+import { Keyring } from '@polkadot/keyring';
+// create a keyring with some non-default values specified
+const keyring = new Keyring();
+```
+
+> 小窍门： 你可访问 polkadot-js App, Developer > Javascript 内，可再加 debugger 与里面的对象物件互动。
+
+这样，默认生成出来是用 `ed25519` 签名法，及为 Substrate 网络的帐号。
+
+```javascript
+const keyring = new Keyring({ type: 'sr25519', ss58Format: 2 });
+```
+
+这样，默认生成的出来是用 `sr25519` 签名法，及为 Kusama 网络的帐号。
+
+ss58Format:
+
+- `0`: Polkadot 网络
+- `2`: Kusama 网络
+- `42`: 一般 Substrate 网络
+
+然后，就可这样加一个帐号：
+
+```javascript
+const mnemonic = mnemonicGenerate();
+
+// create & add the pair to the keyring with the type and some additional
+// metadata specified
+const pair = keyring.addFromUri(mnemonic, { name: 'first pair' });
+```
+
+最后，拿着这个帐号，你就可对一个交易作签名：
+
+```javascript
+const txHash = await api.tx.balances
+  .transfer(BOB, 12345)
+  .signAndSend(alice);
+```
+
+参考:
+
+- [SS58 地址格式](https://github.com/paritytech/substrate/wiki/External-Address-Format-(SS58))
+- [Polkadot Accounts](https://wiki.polkadot.network/docs/en/learn-accounts)
+- [ecdsa 签名法](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
+
+## 作业
+
+这个作业你需要用这个目录下的 `kitties/substrate` 作你的 Substrate 端，然后以 `kitties/frontend` 作为前端继续开发。
+
+**这个作业目的是在 [已有的 kitties 前端基础上](kitties/frontend)，写出查询区块链的逻辑来显示每只猫咪。**
+
+每只猫咪需要显示其：
+
+- 猫咪的 ID
+- 猫咪的 DNA
+- 猫咪所属的 `AccountId`
+
+👉 [点击这里查看成品视频展示](https://www.awesomescreenshot.com/embed?id=2196893&shareKey=7749c0f9101a5791240bda8a391a1ce9)
+
+打分維度 (10 分滿分)：
+
+- 能查詢出鏈上貓咪的總數 (3 分)
+- 能查詢出鏈上貓咪的 ID, 所屬主人，及其 DNA (4 分)
+- 能在 react 端組合回需要的數組結構 (3 分)

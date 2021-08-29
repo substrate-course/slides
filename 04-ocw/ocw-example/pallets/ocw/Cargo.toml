@@ -1,0 +1,48 @@
+[package]
+name = "pallet-ocw"
+version = "3.1.0"
+edition = "2018"
+authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+repository = "https://github.com/substrate-developer-hub/recipes/"
+description = "A pallet that demonstrates many aspects of offchain workers"
+license = "GPL-3.0-or-later"
+
+[package.metadata.substrate]
+categories = [
+	"pallet",
+	"offchain worker",
+]
+
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
+[dependencies]
+parking_lot = "0.11"
+parity-scale-codec = { default-features = false, features = ['derive'], version = '2.0.0' }
+serde = { version = '1.0.130', default-features = false, features = ['derive'] }
+serde_json = { version = '1.0.67', default-features = false, features = ['alloc'] }
+log = { version = "0.4.14", default-features = false }
+
+# Substrate packages
+
+frame-support = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+frame-system = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+sp-core = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+sp-io = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+sp-runtime = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+sp-std = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+sp-arithmetic = { git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-08', version = '4.0.0-dev', default-features = false }
+
+[features]
+default = ['std']
+std = [
+	'frame-support/std',
+	'frame-system/std',
+	'parity-scale-codec/std',
+	'sp-io/std',
+	'sp-runtime/std',
+	'sp-std/std',
+	'sp-arithmetic/std',
+	'log/std'
+]
+try-runtime = ["frame-support/try-runtime"]
