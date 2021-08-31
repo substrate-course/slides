@@ -12,7 +12,7 @@
   ```bash
   git clone https://github.com/SubstrateCourse/slides
   cd slides
-  git checkout advanced-term-03
+  git checkout advanced/term-03/lecture
   cd 03_polkadot-js-api
   ```
 
