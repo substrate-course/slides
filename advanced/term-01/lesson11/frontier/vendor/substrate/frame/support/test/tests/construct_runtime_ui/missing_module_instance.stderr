@@ -1,5 +1,0 @@
-error: expected identifier
- --> $DIR/missing_module_instance.rs:9:20
-  |
-9 |         system: System::<>,
-  |                          ^
