@@ -16,7 +16,8 @@ const TransferModal = props => {
   }
 
   const confirmAndClose = (unsub) => {
-    unsub()
+    // 保持监听
+    // unsub()
     setOpen(false)
   }
 
