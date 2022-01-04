@@ -21,12 +21,11 @@
 
 Substrate/Polkadot-JS 文档：
 
-- 主要：[substrate.dev](https://substrate.dev)
+- 主要：[docs.substrate.io](https://docs.substrate.io/)
   - [教程 tutorials](https://substrate.dev/tutorials)
-  - [基础知识 knowledge base](https://substrate.dev/docs/en/)
-  - [进阶菜谱 Recipes](https://substrate.dev/recipes/)
-  - [how-to 手册](https://substrate.dev/substrate-how-to-guides/)
-  - [API 文档 Rustdocs](https://substrate.dev/rustdocs/)
+  - [基础知识 knowledge base](https://docs.substrate.io/tutorials/v3/)
+  - [how-to 手册](https://docs.substrate.io/how-to-guides/v3/)
+  - [API 文档 Rustdocs](https://docs.substrate.io/rustdocs/)
 
 - [Polkadot wiki](https://wiki.polkadot.network/)
   - 纪录着 Polkadot 及 Kusama 网络的基础知识及网络行为
@@ -35,7 +34,7 @@ Substrate/Polkadot-JS 文档：
 
 ## Polkadot-js API
 
-1. 首先各位要先运行 [Substrate Node Template **v3.0.0+monthly-2021-08** 版](https://github.com/substrate-developer-hub/substrate-node-template/tree/v3.0.0+monthly-2021-08)
+1. 首先各位要先运行 [Substrate Node Template **monthly-2021-12** 版](https://github.com/substrate-developer-hub/substrate-node-template/tree/monthly-2021-12)
 
 2. 运行随本目录的 [`js-component`](./js-component)
 
@@ -165,7 +164,7 @@ console.log("Metadata: " + metadata.raw);
 - 读取这个链的 metadata, 就会知道这 Substrate 链提供了什么接口可供调用。
 - Polkadot-JS API 也是透过读取这数据构建出 api.[tx, consts, query].* 的接口。
 
-详细可看这里: https://substrate.dev/docs/en/knowledgebase/runtime/metadata
+详细可看这里: https://docs.substrate.io/v3/runtime/metadata/
 
 ### 基础
 
@@ -274,34 +273,6 @@ await api.tx.balances.transfer(dest.address, amt)
      });
     ```
 
-### 设定自订义类型
-
-如果你看到有以下错误信息，
-
-```
-Cannot construct unknown type ...
-```
-
-如下图：
-
-![unknown type 报错](https://i.imgur.com/nwl3cTy.jpg)
-
-那说明你的 Substrate 链有一自定义类型，但 polakdot-JS API 不知道怎么解释它。需要做的是在 Polkadot-JS API 连入 Substrate 节点时，定义出该类型。如下面的 `kittyIndex`。
-
-```javascript
-const api = await ApiPromise.create({
-  provider: wsProvider,
-  types: {
-    KittyIndex: 'u64'
-  }
-});
-```
-
-
-在用 Polkadot-JS App 时，则可在 Settings > Developer 把自定义的类型 JSON 放到这里来。
-
-详情参看：https://polkadot.js.org/docs/api/start/types.extend
-
 ### keyring 钥匙圈
 
 ```javascript
@@ -379,10 +350,14 @@ const txHash = await api.tx.balances
 - 猫咪的 DNA
 - 猫咪所属的 `AccountId`
 
-👉 [点击这里查看成品视频展示](https://www.awesomescreenshot.com/embed?id=2196893&shareKey=7749c0f9101a5791240bda8a391a1ce9)
+👉 可观看课程另一视频了解功课完成后该怎么样的
 
 打分維度 (10 分滿分)：
 
 - 能查詢出鏈上貓咪的總數 (3 分)
 - 能查詢出鏈上貓咪的 ID, 所屬主人，及其 DNA (4 分)
 - 能在 react 端組合回需要的數組結構 (3 分)
+
+## 更多 (可选)
+
+- 可跟着做官方教程的 [Substrate Kitties Workshop](https://docs.substrate.io/tutorials/v3/kitties/pt1/)
